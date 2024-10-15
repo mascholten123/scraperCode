@@ -1,0 +1,9 @@
+To add packages to the virtual enviroment do this:
+
+In terminal Window actiavte the virtual env
+   source /home/mirabelle/my-env/bin/activate
+
+   List packages: pip list
+
+   Install package:  python3 -m pip install mathplot
+
