@@ -1,7 +1,7 @@
-#!/home/mirabelle/my-env/bin/python3 -u
+#!/home/willem/my-env/bin/python3 -u
 # 
 # To update etc virtual environment must be activated
-# source /home/mirabelle/my-env/bin/activate
+# source /home/willem/my-env/bin/activate
 #
 # Make sure the virtual env. is set as a python interperter - View - Command Pallette - Select Python Interpeter
 #
@@ -23,6 +23,7 @@ import json
 from datetime import datetime
 import urllib.request, json 
 
+
 verbose = 0                 # boolean used for verbose out put - default shoushould be 0
 crontab = 1                 # should be set to 1 if runnign as a crontab
 
@@ -41,7 +42,7 @@ if crontab:
 #
 # For the MySQL DB the optional client_flags can not be set via JSON
 
-json_file_path = r"secrets/dbSecrets.json"
+json_file_path = r"/home/mirabelle/scraperCode/secrets/dbSecrets.json"
 with open(json_file_path, "r") as f:
     credentials = json.load(f)
 
@@ -78,10 +79,30 @@ rowcount_start = rows[0]
 print("Number of records in DB before new extract: ", rowcount_start)
 
 # --- JSON processing ----------------------------------------------------------
-with urllib.request.urlopen("https://opendata-reunion.edf.fr/api/explore/v2.1/catalog/datasets/prod-electricite-temps-reel/records?limit=100") as url:
-    data = json.load(url)
+try:
+    with urllib.request.urlopen("https://opendata-reunion.edf.fr/api/explore/v2.1/catalog/datasets/prod-electricite-temps-reel/records?limit=100") as url:
+        data = json.load(url)
+        if verbose:
+            print(url.status)
+            print(data)
+except HTTPError as error:
     if verbose:
-        print(data)
+        print(error.status, error.reason)
+    if crontab:
+        print(error.status, error.reason)
+        exit(0)      
+except URLError as error:
+    if verbose:
+        print(error.reason)
+    if crontab:
+        print(error.reason)
+        exit(0)
+except TimeoutError:
+    if verbase:
+        print("Request timed out")
+    if crontab:
+        print("Request timed out")
+        exit(0)
 
 df = pd.json_normalize(data['results'])
 if verbose:
