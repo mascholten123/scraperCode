@@ -1,7 +1,7 @@
-#!/home/willem/my-env/bin/python3 -u
+#!/home/mirabelle/my-env/bin/python3 -u
 # 
 # To update etc virtual environment must be activated
-# source /home/willem/my-env/bin/activate
+# source /home/mirabelle/my-env/bin/activate
 #
 # Make sure the virtual env. is set as a python interperter - View - Command Pallette - Select Python Interpeter
 #
