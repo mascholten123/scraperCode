@@ -33,7 +33,7 @@ if crontab:
     # dd/mm/YY H:M:S
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
     print("-----------------------------------------------------------------------------------------------")
-    print("Job Started at: ", dt_string)
+    print("Job Started for LaReunionEnergy at: ", dt_string)
 
 # Lets setup the DB connectors to both  DB´s
 # This is the MySQL connection information for the digitalOcean DRwater MySQL DB cluster
@@ -178,7 +178,7 @@ try:
             final = datetime.now()
             # dd/mm/YY H:M:S
             dt_string = final.strftime("%d/%m/%Y %H:%M:%S")
-            print("Job Started finished: ", dt_string)
+            print("Job finished for LaReunionEnergy at: ", dt_string)
 
 except Exception as e:
     print(f"An error occurred while verifying the data: {str(e)}")
